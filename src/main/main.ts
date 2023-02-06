@@ -136,7 +136,7 @@ app.on('window-all-closed', () => {
 app.on('ready', () => {
   //     hides dock for mac
   if (process.platform === 'darwin') {
-    //app.dock.hide();
+    app.dock.hide();
   }
 });
 
@@ -149,7 +149,7 @@ const getAssetPath = (...paths: string[]): string => {
 };
 
 const createTray = () => {
-  tray = new Tray(getAssetPath('icons/16x16.png'));
+  tray = new Tray(getAssetPath('icons/favicon-16x16.png'));
   tray.on('click', () => {
     showWindow();
   });

@@ -63,4 +63,10 @@ describe('Dashboard', () => {
     const epochInput = screen.getByTestId('epochInput');
     expect(epochInput).toHaveValue(1675643710);
   });
+
+  it('should load with the epoch input in focus', () => {
+    render(<Dashboard />);
+    const epochInput = screen.getByTestId('epochInput');
+    expect(epochInput).toHaveFocus();
+  });
 });

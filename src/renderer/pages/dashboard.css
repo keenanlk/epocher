@@ -1,0 +1,34 @@
+.rdp {
+  --rdp-cell-size: 28px;
+  --rdp-accent-color-dark: white;
+  justify-content: center;
+  align-items: center;
+
+}
+.rdp-caption_label {
+  font-size: 15px;
+}
+
+.rdp-nav_button {
+  width: 25px;
+  height: 25px;
+}
+.rdp-month {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+input[type="time"]::-webkit-inner-spin-button,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}

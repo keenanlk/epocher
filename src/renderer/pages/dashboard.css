@@ -1,12 +1,17 @@
 .rdp {
   --rdp-cell-size: 28px;
-  --rdp-accent-color-dark: white;
   justify-content: center;
   align-items: center;
-
 }
 .rdp-caption_label {
   font-size: 15px;
+}
+
+.rdp-day_selected,
+.rdp-day_selected:hover,
+.rdp-day:hover {
+  background: white;
+  color: black;
 }
 
 .rdp-nav_button {
@@ -21,14 +26,14 @@
   width: 100vw;
 }
 
-input[type="date"]::-webkit-inner-spin-button,
-input[type="date"]::-webkit-calendar-picker-indicator {
+input[type='date']::-webkit-inner-spin-button,
+input[type='date']::-webkit-calendar-picker-indicator {
   display: none;
   -webkit-appearance: none;
 }
 
-input[type="time"]::-webkit-inner-spin-button,
-input[type="time"]::-webkit-calendar-picker-indicator {
+input[type='time']::-webkit-inner-spin-button,
+input[type='time']::-webkit-calendar-picker-indicator {
   display: none;
   -webkit-appearance: none;
 }

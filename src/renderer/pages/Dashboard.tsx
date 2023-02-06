@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { format, utcToZonedTime } from 'date-fns-tz';
 import { format as Format, parse } from 'date-fns';
 import { Box, Container, Heading, Input, Text } from '@chakra-ui/react';
-import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import './dashboard.css';
@@ -138,8 +137,14 @@ const Dashboard = () => {
         />
       </div>
 
-      <Box style={{ display: 'flex', flexDirection: 'row' }}>
+      <Box
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+        }}
+      >
         <Input
+          style={{ border: 'none' }}
           data-testid="dateInput"
           value={getDateInputFormatted()}
           placeholder="Select Date and Time"
@@ -148,6 +153,7 @@ const Dashboard = () => {
           onChange={(e) => handleDateInputChange(e?.target?.value)}
         />
         <Input
+          style={{ border: 'none' }}
           data-testid="timeInput"
           value={getTimeInputFormatted()}
           step="1"

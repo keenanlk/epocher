@@ -9,7 +9,7 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, Tray } from 'electron';
+import { app, BrowserWindow, shell, Tray, Menu } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -17,14 +17,6 @@ import log from 'electron-log';
 import positioner from 'electron-traywindow-positioner';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-
-class AppUpdater {
-  constructor() {
-    log.transports.file.level = 'info';
-    autoUpdater.logger = log;
-    autoUpdater.checkForUpdatesAndNotify();
-  }
-}
 
 let mainWindow: BrowserWindow | null = null;
 let tray: Tray | null = null;
@@ -118,7 +110,7 @@ const createWindow = async () => {
 
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
-  new AppUpdater();
+  //new AppUpdater();
 };
 
 /**
@@ -150,6 +142,17 @@ const getAssetPath = (...paths: string[]): string => {
 
 const createTray = () => {
   tray = new Tray(getAssetPath('icons/favicon-16x16.png'));
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Quit',
+      accelerator: 'Command+Q',
+      click: () => {
+        app.quit();
+      },
+    },
+  ]);
+  tray.setToolTip('Epocher');
+  tray.setContextMenu(contextMenu);
   tray.on('click', () => {
     showWindow();
   });

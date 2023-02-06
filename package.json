@@ -1,10 +1,26 @@
 {
   "description": "A Menu Tray tool to convert epoch to date strings.",
-  "homepage": "",
+  "keywords": [
+    "date",
+    "epoch",
+    "epocher",
+    "tray",
+    "convert"
+  ],
+  "homepage": "https://github.com/keenanlk/epocher",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/keenanlk/epocher/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/keenanlk/epocher.git"
   },
   "license": "MIT",
+  "author": {
+    "name": "Keenan Kaufman",
+    "email": "keenanlkaufman@gmail.com",
+    "url": "https://github.com/keenanlk/epocher"
+  },
   "main": "./src/main/main.ts",
   "scripts": {
     "build": "concurrently \"npm run build:main\" \"npm run build:renderer\"",
@@ -168,6 +184,7 @@
   },
   "build": {
     "productName": "Epocher",
+    "appId": "com.keenankaufman.epocher",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
@@ -184,6 +201,7 @@
           "x64"
         ]
       },
+      "asarUnpack": "**/*.node",
       "type": "distribution",
       "hardenedRuntime": true,
       "entitlements": "assets/entitlements.mac.plist",
@@ -229,9 +247,7 @@
       "repo": "epocher"
     }
   },
-  "collective": {
-    "url": "https://opencollective.com/electron-react-boilerplate-594"
-  },
+
   "devEngines": {
     "node": ">=14.x",
     "npm": ">=7.x"

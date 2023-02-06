@@ -22,7 +22,7 @@ release/*
 release/app/dist
 release/build
 .erb/dll
-
+.env
 .idea
 npm-debug.log.*
 *.css.d.ts

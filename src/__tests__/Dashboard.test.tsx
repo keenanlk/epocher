@@ -26,7 +26,7 @@ describe('Dashboard', () => {
     fireEvent.change(epochInput, { target: { value: 1675639572 } });
 
     const utcString = screen.getByTestId('utcString');
-    expect(utcString).toHaveTextContent('February 5, 2023 11:26:12 PM UTC');
+    expect(utcString).toHaveValue('February 5, 2023 11:26:12 PM UTC');
   });
 
   it('changes date and time inputs to match the correct time', () => {

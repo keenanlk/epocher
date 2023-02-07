@@ -1,20 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
 import { format, utcToZonedTime } from 'date-fns-tz';
-import { format as Format, parse } from 'date-fns';
+import { parse } from 'date-fns';
 import { Box, Container, Heading, Input, Text } from '@chakra-ui/react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
-import './dashboard.css';
+import './dashboard.scss';
+import DateStringInput from '../components/DateStringInput';
 
 const Dashboard = () => {
   const [isVisible, setIsVisible] = useState(document?.hidden);
-  const [time, setTime] = useState(Math.floor(Date.now() / 1000));
+  const [date, setDate] = useState(new Date());
 
   const timeRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (isVisible) {
-      setTime(Math.floor(Date.now() / 1000));
+      setDate(new Date());
     }
   }, [isVisible]);
 
@@ -34,7 +35,6 @@ const Dashboard = () => {
 
   function getLocalTimeString() {
     try {
-      const date = new Date(time * 1000);
       return format(date, 'MMMM d, yyyy h:mm:ss a z');
     } catch {
       return '';
@@ -43,7 +43,6 @@ const Dashboard = () => {
 
   function getUtcTimeString() {
     try {
-      const date = new Date(time * 1000);
       const utcDate = utcToZonedTime(date, 'UTC');
       return `${format(utcDate, 'MMMM d, yyyy h:mm:ss a')} UTC`;
     } catch {
@@ -52,58 +51,56 @@ const Dashboard = () => {
   }
 
   function getDateInputFormatted() {
-    const date = new Date(time * 1000);
-    return Format(date, 'yyyy-MM-dd');
+    return format(date, 'yyyy-MM-dd');
   }
 
   function getTimeInputFormatted() {
-    const date = new Date(time * 1000);
-    return Format(date, 'HH:mm:ss');
+    return format(date, 'HH:mm:ss');
   }
 
-  function handleDateSelected(date: Date) {
-    const newDate = new Date(date);
-    const currentTime = new Date(time * 1000);
-    newDate.setHours(currentTime.getHours());
-    newDate.setMinutes(currentTime.getMinutes());
-    newDate.setSeconds(currentTime.getSeconds());
-    setTime(newDate.getTime() / 1000);
+  function handleDateSelected(newDate: Date) {
+    newDate.setHours(date.getHours());
+    newDate.setMinutes(date.getMinutes());
+    newDate.setSeconds(date.getSeconds());
+    setDate(newDate);
   }
 
   function handleDateInputChange(value: string) {
     if (!value) return;
-    const currentDate = new Date(time * 1000);
     const newDate = parse(value, 'yyyy-MM-dd', new Date());
-    newDate.setHours(currentDate.getHours());
-    newDate.setMinutes(currentDate.getMinutes());
-    newDate.setSeconds(currentDate.getSeconds());
-    setTime(newDate.getTime() / 1000);
+    newDate.setHours(date.getHours());
+    newDate.setMinutes(date.getMinutes());
+    newDate.setSeconds(date.getSeconds());
+    setDate(newDate);
   }
 
   function handleTimeInputChange(value: string) {
-    debugger;
     if (!value) return;
     const [hours, minutes, seconds] = value.split(':');
-    const currentDate = new Date(time * 1000);
-    currentDate.setHours(Number(hours));
-    currentDate.setMinutes(Number(minutes));
-    currentDate.setSeconds(Number(seconds));
-    setTime(currentDate.getTime() / 1000);
+    const newDate = new Date(date);
+    newDate.setHours(Number(hours));
+    newDate.setMinutes(Number(minutes));
+    newDate.setSeconds(Number(seconds));
+    setDate(newDate);
+  }
+
+  function dateToSeconds() {
+    return Math.floor(date.getTime() / 1000);
   }
 
   return (
-    <Container padding="4" gap="2">
-      <Box padding="2">
+    <Container className="container">
+      <Box className="groupWrapper">
         <Heading size="sm">Epoch Converter</Heading>
       </Box>
 
-      <Box padding="2">
+      <Box className="groupWrapper">
         <Input
           data-testid="epochInput"
           id="time"
-          value={time}
+          value={dateToSeconds()}
           onChange={(e) => {
-            setTime(Number(e.target.value));
+            setDate(new Date(Number(e.target.value) * 1000));
           }}
           type="number"
           autoFocus
@@ -112,52 +109,33 @@ const Dashboard = () => {
         />
       </Box>
 
-      <Box
-        padding="2"
-        lineHeight="150%"
-        noOfLines={2}
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Text data-testid="localeString" fontSize="sm">
-          {getLocalTimeString()}
-        </Text>
-        <Text data-testid="utcString" fontSize="sm">
-          {getUtcTimeString()}
-        </Text>
+      <Box className="groupWrapper stringSectionWrapper">
+        <DateStringInput value={getLocalTimeString()} dataTest="localeString" />
+        <DateStringInput value={getUtcTimeString()} dataTest="utcString" />
       </Box>
 
       <div data-testid="dayPickerCalendar">
         <DayPicker
-          selected={new Date(time * 1000)}
-          style={{ display: 'flex' }}
+          selected={date}
+          className="calendar"
           mode="single"
-          month={new Date(time * 1000)}
+          month={date}
           onSelect={(e) => handleDateSelected(e || new Date())}
         />
       </div>
 
-      <Box
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-        }}
-      >
+      <Box className="dateTimeInput">
         <Input
-          style={{ border: 'none' }}
           data-testid="dateInput"
           value={getDateInputFormatted()}
-          placeholder="Select Date and Time"
           size="md"
           type="date"
           onChange={(e) => handleDateInputChange(e?.target?.value)}
         />
         <Input
-          style={{ border: 'none' }}
           data-testid="timeInput"
           value={getTimeInputFormatted()}
           step="1"
-          placeholder="Select Date and Time"
           size="md"
           type="time"
           onChange={(e) => handleTimeInputChange(e?.target?.value)}

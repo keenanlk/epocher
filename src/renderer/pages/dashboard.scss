@@ -37,3 +37,30 @@ input[type='time']::-webkit-calendar-picker-indicator {
   display: none;
   -webkit-appearance: none;
 }
+
+.container {
+  padding: 16px;
+  gap: 8px;
+
+  .groupWrapper {
+    padding: 8px;
+
+    .stringSectionWrapper {
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .calendar {
+    display: flex;
+  }
+
+  .dateTimeInput {
+    display: flex;
+    flex-direction: row;
+
+    Input {
+      border: none;
+    }
+  }
+}

@@ -3,8 +3,8 @@
 ---
 
 ### Download
-- [Apple Silicon](https://github.com/keenanlk/epocher/releases/download/v1.0.0-alpha/Epocher-4.6.0-arm64-mac.zip)
-- [Intel](https://github.com/keenanlk/epocher/releases/download/v1.0.0-alpha/Epocher-4.6.0-mac.zip)
+- [Apple Silicon](https://github.com/keenanlk/epocher/releases/latest/download/Epocher-4.6.0-arm64-mac.zip)
+- [Intel](https://github.com/keenanlk/epocher/releases/latest/download/Epocher-4.6.0-mac.zip)
 
 ---
 

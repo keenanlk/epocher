@@ -119,7 +119,7 @@ const Dashboard = () => {
           selected={date}
           className="calendar"
           mode="single"
-          month={date}
+          defaultMonth={date}
           onSelect={(e) => handleDateSelected(e || new Date())}
         />
       </div>

@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import Dashboard from '../renderer/pages/Dashboard';
+import { format } from 'date-fns';
 
 describe('Dashboard', () => {
   it('renders all the components', () => {
@@ -32,36 +33,47 @@ describe('Dashboard', () => {
   it('changes date and time inputs to match the correct time', () => {
     render(<Dashboard />);
     const epochInput = screen.getByTestId('epochInput');
+    const seconds = 1675639572;
 
-    fireEvent.change(epochInput, { target: { value: 1675639572 } });
+    fireEvent.change(epochInput, { target: { value: seconds } });
+    const date = new Date(seconds * 1000);
+    const expectDate = format(date, 'yyyy-MM-dd');
     const dateInput = screen.getByTestId('dateInput');
-    expect(dateInput).toHaveValue('2023-02-05');
+    expect(dateInput).toHaveValue(expectDate);
+    const expectedTime = format(date, 'HH:mm:ss');
     const timeInput = screen.getByTestId('timeInput');
-    expect(timeInput).toHaveValue('17:26:12');
+    expect(timeInput).toHaveValue(expectedTime);
   });
 
   it('changes epoch time when date input is changed', () => {
     render(<Dashboard />);
+    const seconds = 1675639572;
+    const date = new Date(seconds * 1000);
+    const inputDate = format(date, 'yyyy-MM-dd');
     const dateInput = screen.getByTestId('dateInput');
-    fireEvent.change(dateInput, { target: { value: '2021-05-28' } });
+    fireEvent.change(dateInput, { target: { value: inputDate } });
     const epochInput = screen.getByTestId('epochInput');
     expect(Number((epochInput as HTMLInputElement).value)).toBeGreaterThan(
-      1622178000
+      seconds - 86400
     );
     expect(Number((epochInput as HTMLInputElement).value)).toBeLessThan(
-      1622264392
+      seconds + 86400
     );
   });
 
   it('changes epoch time when time input is changed', () => {
     render(<Dashboard />);
     const initialEpochInput = screen.getByTestId('epochInput');
-
-    fireEvent.change(initialEpochInput, { target: { value: 1675639572 } });
+    const seconds = 1675639572;
+    const date = new Date(seconds * 1000);
+    fireEvent.change(initialEpochInput, { target: { value: seconds } });
     const timeInput = screen.getByTestId('timeInput');
     fireEvent.change(timeInput, { target: { value: '18:35:10' } });
+    date.setHours(18);
+    date.setMinutes(35);
+    date.setSeconds(10);
     const epochInput = screen.getByTestId('epochInput');
-    expect(epochInput).toHaveValue(1675643710);
+    expect(epochInput).toHaveValue(date.getTime() / 1000);
   });
 
   it('should load with the epoch input in focus', () => {

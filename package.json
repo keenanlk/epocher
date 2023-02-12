@@ -1,6 +1,6 @@
 {
   "name": "Epocher",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A Menu Tray tool to convert epoch to date strings.",
   "keywords": [
     "date",

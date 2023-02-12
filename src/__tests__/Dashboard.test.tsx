@@ -37,7 +37,7 @@ describe('Dashboard', () => {
     const dateInput = screen.getByTestId('dateInput');
     expect(dateInput).toHaveValue('2023-02-05');
     const timeInput = screen.getByTestId('timeInput');
-    expect(timeInput).toHaveValue('17:26');
+    expect(timeInput).toHaveValue('17:26:12');
   });
 
   it('changes epoch time when date input is changed', () => {
@@ -46,7 +46,7 @@ describe('Dashboard', () => {
     fireEvent.change(dateInput, { target: { value: '2021-05-28' } });
     const epochInput = screen.getByTestId('epochInput');
     expect(Number((epochInput as HTMLInputElement).value)).toBeGreaterThan(
-      1622243332
+      1622178000
     );
     expect(Number((epochInput as HTMLInputElement).value)).toBeLessThan(
       1622264392

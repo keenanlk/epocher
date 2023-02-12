@@ -10,8 +10,6 @@
  */
 import path from 'path';
 import { app, BrowserWindow, shell, Tray, Menu } from 'electron';
-import { autoUpdater } from 'electron-updater';
-import log from 'electron-log';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import positioner from 'electron-traywindow-positioner';
@@ -72,7 +70,7 @@ const createWindow = async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: 320,
-    height: 470,
+    height: 500,
     frame: false,
     icon: getAssetPath('icon.png'),
     resizable: false,

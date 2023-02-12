@@ -11,4 +11,4 @@
 ### About
 A system tray app built with React and Electron to do date conversions.
 
-![app](https://lh4.googleusercontent.com/NwKkmauXNYTWbPm-BKhB1wQ4FF4oDUvYxKL7Qq9ql5mxxMQYr_PjgCqwDk95t9TUCOg=w2400)
+![app](https://lh5.googleusercontent.com/dDccQD39HQDgdwcHLoID_lJiUCT4bw_9zBSNd9kIo4qmg93XnpHlrlBmzPsJBnEwyAE=w2400)
